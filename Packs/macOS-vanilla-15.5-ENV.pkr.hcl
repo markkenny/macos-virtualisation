@@ -13,7 +13,7 @@ packer {
 
 variable "vm_name" {
   type        = string
-  default     = "macOS-vanilla-15.6.1"
+  default     = "macOS-vanilla-15.5"
   description = "Name of the virtual machine to create"
 }
 
@@ -44,7 +44,7 @@ variable "jamf_invitation_id" {
 
 variable "ipsw_url" {
   type        = string
-  default     = "https://updates.cdn-apple.com/2025SummerFCS/fullrestores/093-10809/CFD6DD38-DAF0-40DA-854F-31AAD1294C6F/UniversalMac_15.6.1_24G90_Restore.ipsw"
+  default     = "https://updates.cdn-apple.com/2025SpringFCS/fullrestores/082-44534/CE6C1054-99A3-4F67-A823-3EE9E6510CDE/UniversalMac_15.5_24F74_Restore.ipsw"
   description = "URL to the macOS IPSW file"
 }
 
@@ -167,7 +167,8 @@ build {
     extra_arguments = [
       "-vvv",
       "--extra-vars",
-      "ansible_user=${var.mac_username} ansible_password=${var.mac_password}"
+      "ansible_user=${var.mac_username}",
+      "ansible_password=${var.mac_password}",
     ]
     ansible_env_vars = [
       "ANSIBLE_TRANSPORT=paramiko",

@@ -85,7 +85,7 @@ source "tart-cli" "tart" {
     "<wait8s><spacebar>",
     "<leftAltOn><f5><leftAltOff>",
     # Terminal settings
-    "<wait2s><leftAltOn><spacebar><leftAltOff>Terminal<enter>",
+    "<wait6s><leftAltOn><spacebar><leftAltOff>Terminal<enter>",
     "<wait2s>defaults write NSGlobalDomain AppleKeyboardUIMode -int 3<enter>",
     "<wait2s><leftAltOn>q<leftAltOff>",
     # System Settings

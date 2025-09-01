@@ -82,7 +82,6 @@ packer build \
 -var "mac_password=$PACKER_VAR_mac_password" \
 -var "jamf_url=$PACKER_VAR_jamf_url" \
 -var "jamf_invitation_id=$PACKER_VAR_jamf_invitation_id" \
--var "mdm_invitation_id=$PACKER_VAR_mdm_invitation_id" \
 "$recipe"
 
 echo ""

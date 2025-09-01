@@ -56,7 +56,7 @@ source "tart-cli" "tart" {
   disk_size_gb = 64
   ssh_username = var.mac_username
   ssh_password = var.mac_password
-  ssh_timeout  = "240s"
+  ssh_timeout  = "180s"
   boot_command = [
     "<wait32s><spacebar>",
     "<wait10s>italiano<esc>english<wait2s><enter>",

@@ -1,21 +1,20 @@
 #!/bin/bash
 
 # 2025 08 30 - MK Intial Commit
+# 2025 09 01 - Few typos
 
 set -e
 echo ""
 
-# Set a Specific VM directory if required
+# Set a Specific VM directory if required - WIP
 # currentUser=$( echo "show State:/Users/ConsoleUser" | scutil | awk '/Name :/ && ! /loginwindow/ { print $3 }' )
 # userHome=$( dscl . read /Users/$currentUser NFSHomeDirectory | awk '{print $2}' )
-# CUSTOM_VM_DIR="$HOME/VM"
-# export TART_VMS_PATH="$CUSTOM_VM_DIR"
+# CUSTOM_VM_DIR="$userHome/zMEDIA/VM"
 
 # Get script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TEMPLATES_DIR="$SCRIPT_DIR/Packs"
 REQUIRED_PLAYBOOK="$SCRIPT_DIR/ansible/playbook-system-updater.yml"
-
 
 # Load .env file if present
 if [ -f "$SCRIPT_DIR/.env" ]; then
@@ -27,7 +26,7 @@ if [ -f "$SCRIPT_DIR/.env" ]; then
   export PACKER_VAR_jamf_url
   set +a
 else
-  echo "FAIL: .env file not found."
+  echo "FAIL: .env file not found for user credentials."
   exit 1
 fi
 
@@ -83,5 +82,6 @@ packer build \
 -var "jamf_url=$PACKER_VAR_jamf_url" \
 -var "jamf_invitation_id=$PACKER_VAR_jamf_invitation_id" \
 "$recipe"
+
 echo ""
 

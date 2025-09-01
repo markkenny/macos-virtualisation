@@ -11,15 +11,16 @@ Good luck folks. It's a good suite of tools, this is how I got 'em to work.
 At time of writing I just found Robs Tahoe pack/cake? 
 
 ## TO-DO
-I aw there's a [plugin for UTM.](https://github.com/naveenrajm7/packer-plugin-utm) That might be useful.
+I saw there's a [plugin for UTM.](https://github.com/naveenrajm7/packer-plugin-utm) That might be useful.
 
 # SETUP
 
 ## Install Tart and Packer
 Homebrew required to install binaries; tart and packer.
-`brew install cirruslabs/cli/tart`
-`brew tap hashicorp/tap`
-`brew install hashicorp/tap/packer`
+```brew install cirruslabs/cli/tart
+brew tap hashicorp/tap
+brew install hashicorp/tap/packer
+```
 
 ## Packer templates - Packs
 If pulling from this my Git repo', they're kept in the Packs folder, and I'll update there. Just vanilla builds of clean macOS. This is relevant for my Packer and Tarter scripts.
@@ -27,11 +28,11 @@ If pulling from this my Git repo', they're kept in the Packs folder, and I'll up
 ### Credentials
 **Remember to add .env to your .gitignore!**
 A .env file is needed with the variables, username, password and JSS enrollment URL.
-`PACKER_VAR_mac_username="XXXXX"`
-`PACKER_VAR_mac_password="XXXXX"`
-`PACKER_VAR_jamf_url="https://myjamf.jamfcloud.com"`
-`PACKER_VAR_jamf_invitation_id="1234567890"`
-
+```PACKER_VAR_mac_username="XXXXX"
+PACKER_VAR_mac_password="XXXXX"
+PACKER_VAR_jamf_url="https://myjamf.jamfcloud.com"
+PACKER_VAR_jamf_invitation_id="1234567890"
+```
 ### IPSW
 ipsw_url can be used to source the IPSW installer from a HTTPS link or path.
 
@@ -55,11 +56,12 @@ While running, do not interact with the tart window!! Don't click in there! Let 
 Once you've 'packer'd a packs, tart clones and runs the VMs.
 
 Simply...
-`MASTER="vanilla-sequoia.pkr.hcl"`
-`CLONE="MyTest"`
-`tart clone $MASTER $CLONE`
-`tart set $CLONE$ --display-refit --random-serial --random-mac`
-`tart run $CLONE`
+```MASTER="vanilla-sequoia.pkr.hcl"
+CLONE="MyTest"
+tart clone $MASTER $CLONE
+tart set $CLONE$ --display-refit --random-serial --random-mac
+tart run $CLONE
+```
 
 A cloned VM will run as long as the command is running. Quit the VM or kill the command.
 
@@ -75,7 +77,7 @@ tart clone ghcr.io/cirruslabs/macos-sequoia-base:latest sequoia-base
 tart run sequoia-base
 
 # LINKS
-## Where I started
+## Where I started learning
 [Robs Guide](https://www.motionbug.com/the-cookbook-baking-up-your-perfect-jamf-pro-test-vm/)
 [YouTube](https://www.youtube.com/watch?v=7DqS9bG3bkg)
 [Rob Potvin example apple-tart-enrollment-url.pkr.hcl](https://github.com/motionbug/macad.uk2025/tree/main/packer-templates)

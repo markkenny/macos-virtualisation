@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # 2025 08 30 - MK Intial Commit
+# 2025 09 05 - Simplify launch
 
 set -e
 echo ""
@@ -47,11 +48,10 @@ echo "Selected: $selected_vm"
 echo ""
 echo "What would you like to do?"
 echo "  1) Clone"
-echo "  2) Set (random serial, mac, display)"
-echo "  3) Run (share home directory as '/Volumes/My Shared Files/Home')"
-echo "  4) Delete"
+echo "  2) Launch"
+echo "  3) Delete"
 echo ""
-read -rp "Choose action [1-4]: " action
+read -rp "Choose action [1-3]: " action
 
 case "$action" in
   1)
@@ -61,17 +61,15 @@ case "$action" in
       exit 1
     fi
     tart clone "$selected_vm" "$clone_name"
+    tart set "$selected_vm" --random-serial --random-mac --display-refit
     echo "Cloned $selected_vm to $clone_name"
     ;;
   2)
-    tart set "$selected_vm" --random-serial --random-mac --display-refit
-    echo "Set options applied to $selected_vm"
-    ;;
-  3)
     # tart run "$selected_vm" --dir=Home:~/
     nohup tart run "$selected_vm" --dir=Home:~/ > /dev/null 2>&1 &
+    echo "Launched $selected_vm in new Tart window"
     ;;
-  4)
+  3)
     read -rp "Are you sure you want to delete $selected_vm? This CANNOT be undone! [y/N]: " confirm
     if [[ "$confirm" =~ ^[Yy]$ ]]; then
       tart delete "$selected_vm"

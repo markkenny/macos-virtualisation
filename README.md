@@ -1,9 +1,9 @@
 # INTRODUCTION
-Virtualise macOS; So I saw a Rob Potvin Zoom presentation, Amsterdam or Belgium MacAdmins, about virtualisimg macOS on Apple Silicon and have been happy using UTM for a long while. And his recent [Baking Guide for virtualisation](https://www.motionbug.com/the-cookbook-baking-up-your-perfect-jamf-pro-test-vm/) (great aprom) got me thinking; tart, packer, ansible and variable-isationinising. (My word!) 
+Virtualise macOS; So I saw a Rob Potvin Zoom presentation, Amsterdam or Belgium MacAdmins, about virtualisimg macOS on Apple Silicon and have been happy using UTM for a long while. And his recent [Baking Guide for virtualisation](https://www.motionbug.com/the-cookbook-baking-up-your-perfect-jamf-pro-test-vm/) (great apron!) got me thinking; tart, packer, ansible and variable-isationinising. (My word!) 
 
-The Tart and and Packer and Robs guides are great, but use admin/admin as login and password and I want to use use my user/password to build my VMs. I went down a rabbit hole of learning with way too many evenings of watching 15 minute macOS installs, (my wife hearing the voiceover part), trying to get the run to work with Apples changes to the build order since Robs presentation! Also, current guides have commands that do admin to user admin! If the user was named FRANK or SUSAN I could see the admin command against the user! I hope this'll make that bit a little clearer. 
+The Tart and Packer and Robs guides are great, but use admin/admin as login and password and I want to use use my user/password to build my VMs. I went down a rabbit hole of learning with way too many evenings of watching 15 minute macOS installs, (my wife hearing the voiceover part), trying to get the run to work with Apples changes to the build order since Robs presentation! Also, current guides have commands that do admin to user admin! If the user was named FRANK or SUSAN I could see the admin command against the user! I hope this'll make that bit a little clearer. 
 
-I've also sped up the wait commands as much as I could. My testing has been on a M1 MacBookPro, so let's assume as long as you're running on anything as modern, you'll nbe fine. I challenged myself to get it below 10 mins, and I did this lots!
+I've also sped up the wait commands as much as I could. My testing has been on a M1 MacBookPro, so let's assume as long as you're running on anything as modern, you'll be fine. I challenged myself to get it below 10 mins, and I did this lots!
 
 Good luck folks. It's a good suite of tools, this is how I got 'em to work.
 

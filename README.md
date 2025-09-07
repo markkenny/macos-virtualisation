@@ -8,10 +8,7 @@ I've also sped up the wait commands as much as I could. My testing has been on a
 Good luck folks. It's a good suite of tools, this is how I got 'em to work.
 
 ## TAHOE
-At time of writing I just found Robs Tahoe pack/cake? 
-
-## TO-DO
-I saw there's a [plugin for UTM.](https://github.com/naveenrajm7/packer-plugin-utm) That might be useful.
+Tahoe is now working for me. Some new windows and I'll tweak the waits in future.
 
 # SETUP
 

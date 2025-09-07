@@ -32,7 +32,7 @@ variable "vm_name" {
 variable "ipsw_url" {
   type        = string
   # MUST BE A TAHOE IMAGE - either URL or path to IPSW
-  default     = "/Users/mark.kenny/zMEDIA/INSTALLERS_OS/UniversalMac_26.0_25A5349a_Restore.ipsw"
+  default     = "/path/tahoe.ipsw"
   description = "URL to the macOS IPSW file"
 }
 

@@ -10,6 +10,8 @@ Good luck folks. It's a good suite of tools, this is how I got 'em to work.
 ## TAHOE
 Tahoe is now working for me. Some new windows and I'll tweak the waits in future.
 
+Unless you're running Tahoe yourself, you do need Device Support Update from [developer.apple.com](https://developer.apple.com/download/) Manual PKG install.
+
 # SETUP
 
 ## Install Tart and Packer

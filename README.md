@@ -54,11 +54,11 @@ enable_clipboard_sharing   = "false"
 ### Credentials - OLD - Pre December 2026
 A .env file is needed with these variables to be able to pack; username, password and JSS enrollment URL. **Remember to add .env to your .gitignore!**
 ```
-PACKER_VAR_mac_username="The usual"
-PACKER_VAR_mac_password="The usual"
-PACKER_VAR_onejamf_url="https://client.jamf.omnicomgroup.com"
-PACKER_VAR_onejamf_invitation_id="PICK ONE"
-PACKER_VAR_devjamf_url="https://dev.jamf.omnicomgroup.com"
+PACKER_VAR_mac_username="admin"
+PACKER_VAR_mac_password="admin"
+PACKER_VAR_jamf_invitation_id="PICK ONE"
+PACKER_VAR_jamf_url="https://client.jamf.com"
+PACKER_VAR_devjamf_url="https://dev.jamf.com"
 PACKER_VAR_devjamf_invitation_id="PICK ONE"
 ```
 

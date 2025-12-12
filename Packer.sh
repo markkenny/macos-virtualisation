@@ -1,35 +1,16 @@
 #!/bin/bash
 
-# 2025 08 30 - MK Intial Commit
+# 2025 08 30 - MK Initial Commit
 # 2025 09 01 - Few typos
+# 2025 12 10 - Per-template .pkr.env.hcl files
 
 set -e
 echo ""
-
-# Set a Specific VM directory if required - WIP
-# currentUser=$( echo "show State:/Users/ConsoleUser" | scutil | awk '/Name :/ && ! /loginwindow/ { print $3 }' )
-# userHome=$( dscl . read /Users/$currentUser NFSHomeDirectory | awk '{print $2}' )
-# CUSTOM_VM_DIR="$userHome/zMEDIA/VM"
 
 # Get script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TEMPLATES_DIR="$SCRIPT_DIR/Packs"
 REQUIRED_PLAYBOOK="$SCRIPT_DIR/ansible/playbook-system-updater.yml"
-
-# Load .env file if present
-if [ -f "$SCRIPT_DIR/.env" ]; then
-  set -a
-  . "$SCRIPT_DIR/.env"
-  export PACKER_VAR_mac_username
-  export PACKER_VAR_mac_password
-  export PACKER_VAR_jamf_invitation_id
-  export PACKER_VAR_mdm_invitation_id
-  export PACKER_VAR_jamf_url
-  set +a
-else
-  echo "FAIL: .env file not found for user credentials."
-  exit 1
-fi
 
 # Check for ANSIBLE playbook file
 if [[ ! -f "$REQUIRED_PLAYBOOK" ]]; then
@@ -71,18 +52,26 @@ if ! [[ "$selection" =~ ^[0-9]+$ ]] || (( selection < 1 || selection > ${#recipe
 fi
 
 recipe="${recipes[$((selection-1))]}"
+env_file="${recipe%.pkr.hcl}.pkr.env.hcl"
+
 echo ""
 echo "Building $(basename "$recipe")"
 echo ""
 
-packer validate "$recipe"
+# Verify matching .pkr.env.hcl file exists
+if [[ ! -f "$env_file" ]]; then
+  echo "ERROR: Missing environment file: $(basename "$env_file")"
+  echo "Expected location: $env_file"
+  exit 1
+fi
+
+echo "Using environment: $(basename "$env_file")"
+echo ""
+
 packer init "$recipe"
-packer build \
--var "mac_username=$PACKER_VAR_mac_username" \
--var "mac_password=$PACKER_VAR_mac_password" \
--var "jamf_url=$PACKER_VAR_jamf_url" \
--var "jamf_invitation_id=$PACKER_VAR_jamf_invitation_id" \
-"$recipe"
+packer validate -var-file="$env_file" "$recipe"
+packer build -var-file="$env_file" "$recipe"
 
 echo ""
+
 

@@ -1,12 +1,21 @@
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
 
-.env
+# Creds
+*.env.hcl
+*.env
 .env_history
-
-zOLD
-zOLD/
-
-TEST_*
-
 .vscode
 
+# MK
+zOLD
+zOLD/
+TEST_*
+
+# Packer
+*.box
+packer_cache/
+crash.log
+*.pkrvars.hcl

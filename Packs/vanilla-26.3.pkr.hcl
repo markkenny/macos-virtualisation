@@ -7,11 +7,11 @@ packer {
   }
 }
 
+# NOTES
+# 2026 03 004 WIP - New window for Filevault needs to be skipped
+
 # SOURCE
 # https://github.com/motionbug/macad.uk2025/blob/main/packer-templates/apple-tart-tahoe.pkr.hcl
-
-# 2025 12 14 Doesn't for Jamf enrollments as there's no serial number in the VM.
-# Current 26.2 image is 26.0 with updates
 
 # VM Configuration
 variable "vm_name" {
@@ -134,7 +134,7 @@ source "tart-cli" "tart" {
   ssh_timeout  = "60s"
   boot_command = [
     # hello, hola, bonjour, etc.
-    "<wait36s><spacebar>",
+    "<wait60s><spacebar>",
     # Language: most of the times we have a list of "English"[1], "English (UK)", etc. with
     # "English" language already selected. If we type "english", it'll cause us to switch
     # to the "English (UK)", which is not what we want. To solve this, we switch to some other
@@ -142,84 +142,81 @@ source "tart-cli" "tart" {
     # first entry in a list of "english"-prefixed items, which will be "English".
     #
     # [1]: should be named "English (US)", but oh well 🤷
-    "<wait17s>italiano<esc>english<wait1s><enter>",
+    "<wait23s>italiano<esc>english<wait2s><enter>",
     # Select Your Country or Region
-    "<wait32s>united states<leftShiftOn><tab><leftShiftOff><wait1s><spacebar>",
+    "<wait23s><click 'Select Your Country or Region'><wait5s>united states<leftShiftOn><tab><leftShiftOff><wait2s><spacebar>",
     # Transfer Your Data to This Mac
-    "<wait5s><tab><tab><tab><spacebar><tab><tab><wait1s><spacebar>",
+    "<wait6s><tab><tab><tab><spacebar><tab><tab><wait2s><spacebar>",
     # Written and Spoken Languages
-    "<wait5s><leftShiftOn><tab><leftShiftOff><wait1s><spacebar>",
+    "<wait6s><leftShiftOn><tab><leftShiftOff><wait2s><spacebar>",
     # Accessibility
-    "<wait5s><leftShiftOn><tab><leftShiftOff><wait1s><spacebar>",
+    "<wait6s><leftShiftOn><tab><leftShiftOff><wait2s><spacebar>",
     # Data & Privacy
-    "<wait5s><leftShiftOn><tab><leftShiftOff><wait1s><spacebar>",
+    "<wait6s><leftShiftOn><tab><leftShiftOff><wait2s><spacebar>",
     # Create a Mac Account
-    "<wait5s><tab><tab><tab><tab><tab><tab>${var.account_userName}<tab>${var.account_userName}<tab>${var.account_password}<tab>${var.account_password}<tab><tab><spacebar><tab><tab><wait1s><spacebar>",
+    "<wait5s><tab><tab><tab><tab><tab><tab><wait2s>${var.account_userName}<tab><wait2s>${var.account_userName}<tab><wait2s>${var.account_password}<tab><wait2s>${var.account_password}<tab><tab><spacebar><tab><tab><wait2s><spacebar>",
     # Enable Voice Over
-    "<wait64s><leftAltOn><f5><leftAltOff>",
+    "<wait73s><leftAltOn><f5><leftAltOff>",
     # Sign In with Your Apple ID
-    "<wait6s><leftShiftOn><tab><leftShiftOff><wait1s><spacebar>",
+    "<wait6s><leftShiftOn><tab><leftShiftOff><wait2s><spacebar>",
     # Are you sure you want to skip signing in with an Apple ID?
-    "<wai7s><tab><spacebar>",
+    "<wait6s><tab><wait2s><spacebar>",
     # Terms and Conditions
-    "<wait6s><leftShiftOn><tab><leftShiftOff><wait1s><spacebar>",
+    "<wait6s><leftShiftOn><tab><leftShiftOff><wait2s><spacebar>",
     # I have read and agree to the macOS Software License Agreement
-    "<wait6s><tab><spacebar>",
+    "<wait6s><tab><wait2s><spacebar>",
     # Enable Location Services
-    "<wait6s><leftShiftOn><tab><leftShiftOff><wait1s><spacebar>",
+    "<wait6s><leftShiftOn><tab><leftShiftOff><wait2s><spacebar>",
     # Are you sure you don't want to use Location Services?
-    "<wait6s><tab><wait1s><spacebar>",
+    "<wait6s><tab><wait2s><spacebar>",
     # Select Your Time Zone
-    "<wait6s><tab><tab><tab>UTC<enter><leftShiftOn><tab><leftShiftOff><wait1s><spacebar>",
+    "<wait6s><tab><tab><tab>UTC<enter><leftShiftOn><tab><leftShiftOff><wait2s><spacebar>",
     # Analytics
-    "<wait6s><leftShiftOn><tab><leftShiftOff><wait1s><spacebar>",
+    "<wait6s><leftShiftOn><tab><leftShiftOff><wait2s><spacebar>",
     # Screen Time
-    "<wait6s><tab><tab><wait1s><spacebar>",
-
-    # NOT APPEARING WITH macOS 26.1
-    # # Siri
-    # "<wait6s><tab><spacebar><leftShiftOn><tab><leftShiftOff><spacebar>",
-    # # You Mac is Ready for FileVault
-    # "<wait6s><leftShiftOn><tab><tab><leftShiftOff><spacebar>",
-    # # Mac Data Will Not Be Securely Encrypted
-    # "<wait6s><tab><spacebar>",
+    "<wait6s><tab><tab><wait2s><spacebar>",
+    # Siri
+    "<wait6s><tab><spacebar><leftShiftOn><tab><leftShiftOff><wait2s><spacebar>",
+    # You Mac is Ready for FileVault
+    "<wait6s><leftShiftOn><tab><tab><leftShiftOff><wait2s><spacebar>",
+    # Mac Data Will Not Be Securely Encrypted
+    "<wait6s><tab><wait2s><spacebar>",
     # Choose Your Look
-    "<wait6s><leftShiftOn><tab><leftShiftOff><wait1s><spacebar>",
+    "<wait6s><leftShiftOn><tab><leftShiftOff><wait2s><spacebar>",
     # Update Mac Automatically
-    "<wait6s><tab><tab><wait1s><spacebar>",
+    "<wait6s><tab><tab><wait2s><spacebar>",
     # Welcome to Mac
-    "<wait21s><spacebar>",
+    "<wait23s><spacebar>",
     # Disable Voice Over
     "<wait6s><leftAltOn><f5><leftAltOff>",
     # Enable Keyboard navigation
     # This is so that we can navigate the System Settings app using the keyboard
     "<wait6s><leftAltOn><spacebar><leftAltOff>Terminal<wait6s><enter>",
-    "<wait2s>defaults write NSGlobalDomain AppleKeyboardUIMode -int 3<enter>",
+    "<wait6s><wait6s>defaults write NSGlobalDomain AppleKeyboardUIMode -int 3<enter>",
     # Now that the installation is done, open "System Settings"
     # On Tahoe opening System Settings through Spotlight is not very reliable, sometimes opens System information
-    "<wait5s>open '/System/Applications/System Settings.app'<wait1s><enter>",
+    "<wait6s>open '/System/Applications/System Settings.app'<wait2s><enter>",
     # Navigate to "Sharing"
-    "<wait8s><leftCtrlOn><f2><leftCtrlOff><right><right><right><down>Sharing<wait1s><enter>",
+    "<wait6s><leftCtrlOn><f2><leftCtrlOff><right><right><right><down>Sharing<wait2s><enter>",
     # Navigate to "Screen Sharing" and enable it
-    "<wait5s><tab><tab><tab><tab><tab><wait1s><spacebar>",
+    "<wait6s><tab><tab><tab><tab><tab><wait2s><spacebar>",
     # Navigate to "Remote Login" and enable it
-    "<wait5s><tab><tab><tab><tab><tab><tab><tab><tab><tab><tab><tab><tab><wait1s><spacebar>",
+    "<wait6s><tab><tab><tab><tab><tab><tab><tab><tab><tab><tab><tab><tab><wait2s><spacebar>",
     # Quit System Settings
-    "<wait5s><leftAltOn>q<leftAltOff>",
+    "<wait6s><leftAltOn>q<leftAltOff>",
     # Disable Gatekeeper (1/2)
-    "<wait5s>sudo spctl --global-disable<wait1s><enter>",
-    "<wait5s>${var.account_password}<wait1s><enter>",
+    "<wait6s>sudo spctl --global-disable<enter>",
+    "<wait5s>${var.account_password}<wait2s><enter>",
     # Disable Gatekeeper (2/2)
     # On Tahoe opening System Settings through Spotlight is not very reliable, sometimes opens System information
-    "<wait5s>open '/System/Applications/System Settings.app'<wait1s><enter>",
-    "<wait5s><leftCtrlOn><f2><leftCtrlOff><right><right><right><down>Privacy & Security<wait1s><enter>",
-    "<wait5s><leftShiftOn><tab><tab><tab><tab><tab><leftShiftOff>",
-    "<wait5s><down><wait1s><down><wait1s><enter>",
-    "<wait5s>${var.account_password}<wait1s><enter>",
-    "<wait5s><leftShiftOn><tab><leftShiftOff><wait1s><wait1s><spacebar>",
+    "<wait6s>open '/System/Applications/System Settings.app'<enter>",
+    "<wait6s><leftCtrlOn><f2><leftCtrlOff><right><right><right><down>Privacy & Security<wait2s><enter>",
+    "<wait6s><leftShiftOn><tab><tab><tab><tab><tab><tab><leftShiftOff>",
+    "<wait6s><down><wait2s><down><wait2s><enter>",
+    "<wait5s>${var.account_password}<wait2s><enter>",
+    "<wait6s><leftShiftOn><tab><leftShiftOff><wait2s><spacebar>",
     # Quit System Settings
-    ### NOT QUITING SYSTEM SETTINGS OR TERMINAL
-    "<wait5s><leftAltOn>q<leftAltOff>",
+    "<wait6s><leftAltOn>q<leftAltOff>",
   ]
 
   run_extra_args = [
@@ -279,7 +276,7 @@ build {
       "</plist>",
       "EOF",
       "elif [ \"${var.enrollment_type}\" = \"link\" ]; then",
-      "cat << 'EOF' > ~/Desktop/Enroll_Your_Mac.webloc",
+      "cat << 'EOF' > ~/Desktop/OneJAMF_Enroll.webloc",
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
       "<plist version=\"1.0\">",
       "<dict>",
@@ -335,7 +332,7 @@ build {
       "</plist>",
       "EOF",
       "elif [ \"${var.enrollment_type}\" = \"link\" ]; then",
-      "cat << 'EOF' > ~/Desktop/Enroll_Your_Mac.webloc",
+      "cat << 'EOF' > ~/Desktop/DEV_Enroll.webloc",
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
       "<plist version=\"1.0\">",
       "<dict>",
@@ -423,3 +420,4 @@ build {
     ]
   }
 }
+
